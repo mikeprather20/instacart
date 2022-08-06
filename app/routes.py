@@ -1,17 +1,12 @@
 from flask_login import current_user
 from app import app
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template
 
-from app.forms import PokemonForm
-
-from .models import User, Pokemon
-
-import requests
+from .models import User
 
 @app.route('/')
 def index():
     users = User.query.order_by(User.username).all()
-    new_list = []
     following_set = set()
     if current_user.is_authenticated:
         following = current_user.followed.all()
