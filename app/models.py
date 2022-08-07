@@ -72,6 +72,20 @@ class User(db.Model, UserMixin):
         db.session.add(self)
         db.session.commit()
 
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    img_url = db.Column(db.String(300), nullable=False)
+    name = db.Column(db.String(150), nullable=False)
+    desc = db.Column(db.String(500), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    #                      ^might have to change this to an INT or MONEY?
+
+    def __init__(self, img_url, name, desc, price):
+        self.img_url = img_url
+        self.name = name
+        self.desc = desc
+        self.price = price
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -113,17 +127,3 @@ class Post(db.Model):
             'user_id': self.user_id,
             'author': self.author.username
         }
-
-    class Product(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        img_url = db.Column(db.String(300), nullable=False)
-        name = db.Column(db.String(150), nullable=False)
-        desc = db.Column(db.String(500), nullable=False)
-        price = db.Column(db.String(10), nullable=False)
-        #                      ^might have to change this to an INT or MONEY?
-
-    def __init__(self, img_url, name, desc, price):
-        self.img_url = img_url
-        self.name = name
-        self.desc = desc
-        self.price = price
