@@ -5,6 +5,11 @@ from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
+shop = db.Table('cart',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('product_id', db.Integer, db.ForeignKey('product.id'))
+)
+
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id')),
@@ -23,6 +28,11 @@ class User(db.Model, UserMixin):
         secondary = followers,
         backref = db.backref('followers', lazy='dynamic'),
         lazy = 'dynamic'
+    )
+    cart = db.relationship("User",
+    secondary = shop,
+    backref = 'users',
+    lazy = 'dynamic'
     )
 
     def __init__(self, username, email, password):
@@ -103,3 +113,17 @@ class Post(db.Model):
             'user_id': self.user_id,
             'author': self.author.username
         }
+
+    class Product(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        img_url = db.Column(db.String(300), nullable=False)
+        name = db.Column(db.String(150), nullable=False)
+        desc = db.Column(db.String(500), nullable=False)
+        price = db.Column(db.String(10), nullable=False)
+        #                      ^might have to change this to an INT or MONEY?
+
+    def __init__(self, img_url, name, desc, price):
+        self.img_url = img_url
+        self.name = name
+        self.desc = desc
+        self.price = price
