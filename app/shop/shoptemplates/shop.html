@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    <h1>Finstagram Shop!</h1>
+    <div class="row">
+        {% for p in product %}
+            <div class="card text-decoration-none text-dark" style="width: 18rem;">
+                <img src="{{ p.img_url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <p class="card-text">{{ p.name }}</p>
+                <p class="card-text">{{ p.desc}}</p>
+                <p class="card-text">${{ p.price }}</p>
+                
+                <a href="{{ url_for('shop.add2cart', name=p.name) }}" class="btn btn-success">Add to Cart</a> 
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

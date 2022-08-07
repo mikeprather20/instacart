@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
         backref = db.backref('followers', lazy='dynamic'),
         lazy = 'dynamic'
     )
-    cart = db.relationship("User",
+    cart = db.relationship("Product",
     secondary = shop,
     backref = 'users',
     lazy = 'dynamic'

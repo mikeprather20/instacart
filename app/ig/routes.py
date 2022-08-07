@@ -144,5 +144,3 @@ def createPostAPI():
         'status': 'ok',
         'message': "Post was successfully created."
     }
-
-
