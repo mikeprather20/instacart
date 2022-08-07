@@ -5,11 +5,6 @@ from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
-
-# class Followers(db.Model):
-#     follower_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-#     followed_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id')),
