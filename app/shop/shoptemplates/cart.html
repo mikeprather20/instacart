@@ -9,9 +9,13 @@
                 <p class="card-text">{{ c.name }}</p>
                 <p class="card-text">{{ c.desc}}</p>
                 <p class="card-text">${{ c.price }}</p>
-                <a href="{{ url_for('shop.removefromcart', name = c.name)}}" class="btn btn-danger">Remove</a>
+                <a href="{{ url_for('shop.removefromcart', name = c.name) }}" class="btn btn-danger">Remove</a>
                 </div>
             </div>
         {% endfor %}
     </div>
+    <b>
+        Items in Cart = {{ total }}
+        <a href="{{ url_for('shop.removeall') }}" class="btn btn-danger">Remove ALL Items</a>
+    <br>
 {% endblock %}
